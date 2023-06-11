@@ -20,6 +20,7 @@ provider "aws" {
 
 locals {
   common_tags = var.local-common_tags
+  time = formatdate("DD MMM YYYY hh:mm ZZZ", timestamp())
 }
 
 resource "aws_eip" "lb" {
@@ -76,4 +77,8 @@ resource "aws_cognito_user" "example_cognito_user" {
   user_pool_id = aws_cognito_user_pool.example_cognito_pool.id
   username     = "${var.aws-example_cognito_user-username}-${count.index + 1}" #count index starts with 0, hence +1
   count        = var.isCommunity ? var.communityCount : var.nonCommunityCount  #no of users to be created
+}
+
+output "timeout" {
+  value = local.time
 }
