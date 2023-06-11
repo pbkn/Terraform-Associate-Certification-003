@@ -1,20 +1,44 @@
 #AWS provider
-variable "aws-region" {}
+variable "aws-region" {
+    type = string
+}
 
 #AWS eip
-variable "aws-lb-domain" {}
+variable "aws-lb-domain" {
+    type = string
+}
 
 #AWS s3_bucket
-variable "aws-bucket_1-name" {}
+variable "aws-bucket_1-name" {
+    type = string
+}
 
 #AWS ec2
-variable "aws-ec2_1-ami" {}
-variable "aws-ec2_1-instance_type" {}
+variable "aws-ec2_1-ami" {
+    type = map #use case for map
+    default = null
+}
+variable "aws-ec2_1-instance_type" {
+    type = list #use case for list
+    default = null
+}
 
 #AWS security group
-variable "aws-allow_tls-name" {}
-variable "aws-allow_tls-description" {}
-variable "aws-allow_tls-ingress-description" {}
-variable "aws-allow_tls-ingress-from_port" {}
-variable "aws-allow_tls-ingress-to_port" {}
-variable "aws-allow_tls-ingress-protocol" {}
+variable "aws-allow_tls-name" {
+    type = string
+}
+variable "aws-allow_tls-description" {
+    type = string
+}
+variable "aws-allow_tls-ingress-description" {
+    type = string
+}
+variable "aws-allow_tls-ingress-from_port" {
+    type = string
+}
+variable "aws-allow_tls-ingress-to_port" {
+    type = string
+}
+variable "aws-allow_tls-ingress-protocol" {
+    type = string
+}

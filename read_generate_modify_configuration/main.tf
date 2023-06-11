@@ -35,8 +35,8 @@ output "bucket_1" {
 }
 
 resource "aws_instance" "ec2_1" {
-  ami             = var.aws-ec2_1-ami
-  instance_type   = var.aws-ec2_1-instance_type
+  ami             = var.aws-ec2_1-ami[var.aws-region] #using map variable
+  instance_type   = var.aws-ec2_1-instance_type[0] #using list variable
   security_groups = [aws_security_group.allow_tls.name]
 
   tags = {

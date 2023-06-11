@@ -8,8 +8,8 @@ aws-lb-domain = "vpc"
 aws-bucket_1-name= "pbkn-tf-bucket"
 
 #AWS ec2
-aws-ec2_1-ami             = "ami-049a62eb90480f276"
-aws-ec2_1-instance_type   = "t2.micro"
+aws-ec2_1-ami             = {ap-south-1: "ami-049a62eb90480f276"}
+aws-ec2_1-instance_type   = ["t2.micro"]
 
 #AWS security group
 aws-allow_tls-name        = "allow_tls"
