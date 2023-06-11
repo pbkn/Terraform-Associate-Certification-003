@@ -33,14 +33,11 @@ variable "aws-allow_tls-description" {
 variable "aws-allow_tls-ingress-description" {
   type = string
 }
-variable "aws-allow_tls-ingress-from_port" {
-  type = string
-}
-variable "aws-allow_tls-ingress-to_port" {
-  type = string
-}
 variable "aws-allow_tls-ingress-protocol" {
   type = string
+}
+variable "dynamic-allow_tls-ports"{
+  type = list(number)
 }
 
 #AWS Cognito

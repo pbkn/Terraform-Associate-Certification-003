@@ -15,9 +15,8 @@ aws-ec2_1-instance_type = ["t2.micro"]
 aws-allow_tls-name                = "allow_tls"
 aws-allow_tls-description         = "Allow TLS inbound traffic"
 aws-allow_tls-ingress-description = "TLS from EC2 public eip"
-aws-allow_tls-ingress-from_port   = 443
-aws-allow_tls-ingress-to_port     = 443
 aws-allow_tls-ingress-protocol    = "tcp"
+dynamic-allow_tls-ports           = [443]
 
 #AWS cognito
 aws-example_cognito_pool-name     = "tf-user-pool"

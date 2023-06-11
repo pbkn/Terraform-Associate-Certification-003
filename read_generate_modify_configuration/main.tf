@@ -25,12 +25,15 @@ resource "aws_security_group" "allow_tls" {
   name        = var.aws-allow_tls-name
   description = var.aws-allow_tls-description
 
-  ingress {
-    description = var.aws-allow_tls-ingress-description
-    from_port   = var.aws-allow_tls-ingress-from_port
-    to_port     = var.aws-allow_tls-ingress-to_port
-    protocol    = var.aws-allow_tls-ingress-protocol
-    cidr_blocks = ["${aws_eip.lb.public_ip}/32"]
+  dynamic "ingress" {
+    for_each = var.dynamic-allow_tls-ports
+    content {
+      description = var.aws-allow_tls-ingress-description
+      from_port   = var.aws-allow_tls-ingress-from_port
+      to_port     = var.aws-allow_tls-ingress-to_port
+      protocol    = var.aws-allow_tls-ingress-protocol
+      cidr_blocks = ["${aws_eip.lb.public_ip}/32"]
+    }
   }
 
   tags = local.common_tags
