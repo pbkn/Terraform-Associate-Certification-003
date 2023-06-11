@@ -27,10 +27,11 @@ resource "aws_security_group" "allow_tls" {
 
   dynamic "ingress" {
     for_each = var.dynamic-allow_tls-ports
+    iterator = ports
     content {
       description = var.aws-allow_tls-ingress-description
-      from_port   = ingress.value
-      to_port     = ingress.value
+      from_port   = ports.value
+      to_port     = ports.value
       protocol    = var.aws-allow_tls-ingress-protocol
       cidr_blocks = ["${aws_eip.lb.public_ip}/32"]
     }
