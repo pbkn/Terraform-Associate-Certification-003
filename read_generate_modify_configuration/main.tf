@@ -1,44 +1,11 @@
-terraform {
-  cloud {
-    organization = "pbkn-org" #Terraform cloud organization name
-    workspaces {
-      name = "tfc-vs-pbkn-pc" #Terraform cloud workspace
-    }
-  }
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.aws-region
-  # authentication set as env variable in terraform cloud
-}
-
-locals {
-  common_tags = var.local-common_tags
-  time = formatdate("DD MMM YYYY hh:mm ZZZ", timestamp())
-}
-
 resource "aws_eip" "lb" {
   domain = var.aws-lb-domain
   tags   = local.common_tags
 }
 
-output "lb" {
-  value = aws_eip.lb
-}
-
 resource "aws_s3_bucket" "bucket_1" {
   bucket = var.aws-bucket_1-name
   tags   = local.common_tags
-}
-
-output "bucket_1" {
-  value = aws_s3_bucket.bucket_1.bucket_domain_name
 }
 
 resource "aws_instance" "ec2_1" {
@@ -77,8 +44,4 @@ resource "aws_cognito_user" "example_cognito_user" {
   user_pool_id = aws_cognito_user_pool.example_cognito_pool.id
   username     = "${var.aws-example_cognito_user-username}-${count.index + 1}" #count index starts with 0, hence +1
   count        = var.isCommunity ? var.communityCount : var.nonCommunityCount  #no of users to be created
-}
-
-output "timeout" {
-  value = local.time
 }
