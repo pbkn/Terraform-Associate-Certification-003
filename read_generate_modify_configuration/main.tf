@@ -74,5 +74,5 @@ resource "aws_cognito_user_pool" "example_cognito_pool" {
 resource "aws_cognito_user" "example_cognito_user" {
   user_pool_id = aws_cognito_user_pool.example_cognito_pool.id
   username     = "${var.aws-example_cognito_user-username}-${count.index + 1}" #count index starts with 0, hence +1
-  count        = 5                                                             #no of users to be created
+  count        = var.isCommunity ? var.communityCount : var.nonCommunityCount  #no of users to be created
 }

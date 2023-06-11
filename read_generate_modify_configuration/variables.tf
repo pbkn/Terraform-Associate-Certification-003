@@ -50,3 +50,12 @@ variable "aws-example_cognito_pool-name" {
 variable "aws-example_cognito_user-username" {
   type = string
 }
+variable "isCommunity" {
+  type = bool
+}
+variable "communityCount" {
+  type = number
+}
+variable "nonCommunityCount" {
+  type = number
+}

@@ -22,3 +22,8 @@ aws-allow_tls-ingress-protocol    = "tcp"
 #AWS cognito
 aws-example_cognito_pool-name = "tf-user-pool"
 aws-example_cognito_user-username = "tf-user"
+
+#Data
+isCommunity = false
+communityCount = 15
+nonCommunityCount = 2
