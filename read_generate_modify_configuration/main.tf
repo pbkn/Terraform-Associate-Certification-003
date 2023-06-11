@@ -14,12 +14,12 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-south-1"
+  region = var.aws-region
   # authentication set as env variable in terraform cloud
 }
 
 resource "aws_eip" "lb" {
-  domain = "vpc"
+  domain = var.aws-lb-domain
 }
 
 output "lb" {
@@ -27,16 +27,16 @@ output "lb" {
 }
 
 resource "aws_s3_bucket" "bucket_1" {
-  bucket = "pbkn-tf-bucket"
+  bucket = var.aws-bucket_1-name
 }
 
 output "bucket_1" {
   value = aws_s3_bucket.bucket_1.bucket_domain_name
 }
 
-resource "aws_instance" "tf-ec2" {
-  ami             = "ami-049a62eb90480f276"
-  instance_type   = "t2.micro"
+resource "aws_instance" "ec2_1" {
+  ami             = var.aws-ec2_1-ami
+  instance_type   = var.aws-ec2_1-instance_type
   security_groups = [aws_security_group.allow_tls.name]
 
   tags = {
@@ -46,19 +46,19 @@ resource "aws_instance" "tf-ec2" {
 }
 
 resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_instance.tf-ec2.id
+  instance_id   = aws_instance.ec2_1.id
   allocation_id = aws_eip.lb.id
 }
 
 resource "aws_security_group" "allow_tls" {
-  name        = "allow_tls"
-  description = "Allow TLS inbound traffic"
+  name        = var.aws-allow_tls-name
+  description = var.aws-allow_tls-description
 
   ingress {
-    description = "TLS from EC2 public eip"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
+    description = var.aws-allow_tls-ingress-description
+    from_port   = var.aws-allow_tls-ingress-from_port
+    to_port     = var.aws-allow_tls-ingress-to_port
+    protocol    = var.aws-allow_tls-ingress-protocol
     cidr_blocks = ["${aws_eip.lb.public_ip}/32"]
   }
 
