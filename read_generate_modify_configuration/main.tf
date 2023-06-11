@@ -18,8 +18,13 @@ provider "aws" {
   # authentication set as env variable in terraform cloud
 }
 
+locals {
+  common_tags = var.local-common_tags
+}
+
 resource "aws_eip" "lb" {
   domain = var.aws-lb-domain
+  tags   = local.common_tags
 }
 
 output "lb" {
@@ -28,6 +33,7 @@ output "lb" {
 
 resource "aws_s3_bucket" "bucket_1" {
   bucket = var.aws-bucket_1-name
+  tags   = local.common_tags
 }
 
 output "bucket_1" {
@@ -39,10 +45,7 @@ resource "aws_instance" "ec2_1" {
   instance_type   = var.aws-ec2_1-instance_type[0]    #using list variable
   security_groups = [aws_security_group.allow_tls.name]
 
-  tags = {
-    "tf" = "ec2-1"    #Custom propery for bill tracking with key "tf"
-    Name = "tf-ec2-1" #EC2 name property
-  }
+  tags = local.common_tags
 }
 
 resource "aws_eip_association" "eip_assoc" {
@@ -62,9 +65,7 @@ resource "aws_security_group" "allow_tls" {
     cidr_blocks = ["${aws_eip.lb.public_ip}/32"]
   }
 
-  tags = {
-    Name = "allow_tls"
-  }
+  tags = local.common_tags
 }
 
 resource "aws_cognito_user_pool" "example_cognito_pool" {

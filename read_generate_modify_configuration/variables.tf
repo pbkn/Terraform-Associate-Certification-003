@@ -1,46 +1,46 @@
 #AWS provider
 variable "aws-region" {
-    type = string
+  type = string
 }
 
 #AWS eip
 variable "aws-lb-domain" {
-    type = string
+  type = string
 }
 
 #AWS s3_bucket
 variable "aws-bucket_1-name" {
-    type = string
+  type = string
 }
 
 #AWS ec2
 variable "aws-ec2_1-ami" {
-    type = map #use case for map
-    default = null
+  type    = map(any) #use case for map
+  default = null
 }
 variable "aws-ec2_1-instance_type" {
-    type = list #use case for list
-    default = null
+  type    = list(any) #use case for list
+  default = null
 }
 
 #AWS security group
 variable "aws-allow_tls-name" {
-    type = string
+  type = string
 }
 variable "aws-allow_tls-description" {
-    type = string
+  type = string
 }
 variable "aws-allow_tls-ingress-description" {
-    type = string
+  type = string
 }
 variable "aws-allow_tls-ingress-from_port" {
-    type = string
+  type = string
 }
 variable "aws-allow_tls-ingress-to_port" {
-    type = string
+  type = string
 }
 variable "aws-allow_tls-ingress-protocol" {
-    type = string
+  type = string
 }
 
 #AWS Cognito
@@ -50,6 +50,8 @@ variable "aws-example_cognito_pool-name" {
 variable "aws-example_cognito_user-username" {
   type = string
 }
+
+#UserData
 variable "isCommunity" {
   type = bool
 }
@@ -58,4 +60,9 @@ variable "communityCount" {
 }
 variable "nonCommunityCount" {
   type = number
+}
+
+#locals
+variable "local-common_tags" {
+  type = map(any)
 }
