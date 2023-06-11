@@ -18,3 +18,7 @@ aws-allow_tls-ingress-description = "TLS from EC2 public eip"
 aws-allow_tls-ingress-from_port   = 443
 aws-allow_tls-ingress-to_port     = 443
 aws-allow_tls-ingress-protocol    = "tcp"
+
+#AWS cognito
+aws-example_cognito_pool-name = "tf-user-pool"
+aws-example_cognito_user-username = "tf-user"

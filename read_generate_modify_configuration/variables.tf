@@ -42,3 +42,11 @@ variable "aws-allow_tls-ingress-to_port" {
 variable "aws-allow_tls-ingress-protocol" {
     type = string
 }
+
+#AWS Cognito
+variable "aws-example_cognito_pool-name" {
+  type = string
+}
+variable "aws-example_cognito_user-username" {
+  type = string
+}

@@ -36,7 +36,7 @@ output "bucket_1" {
 
 resource "aws_instance" "ec2_1" {
   ami             = var.aws-ec2_1-ami[var.aws-region] #using map variable
-  instance_type   = var.aws-ec2_1-instance_type[0] #using list variable
+  instance_type   = var.aws-ec2_1-instance_type[0]    #using list variable
   security_groups = [aws_security_group.allow_tls.name]
 
   tags = {
@@ -65,4 +65,14 @@ resource "aws_security_group" "allow_tls" {
   tags = {
     Name = "allow_tls"
   }
+}
+
+resource "aws_cognito_user_pool" "example_cognito_pool" {
+  name = var.aws-example_cognito_pool-name
+}
+
+resource "aws_cognito_user" "example_cognito_user" {
+  user_pool_id = aws_cognito_user_pool.example_cognito_pool.id
+  username     = "${var.aws-example_cognito_user-username}-${count.index + 1}" #count index starts with 0, hence +1
+  count        = 5                                                             #no of users to be created
 }
