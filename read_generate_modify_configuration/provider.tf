@@ -1,4 +1,5 @@
 terraform {
+  required_version = "~> 1.0"
   cloud {
     organization = "pbkn-org" #Terraform cloud organization name
     workspaces {
