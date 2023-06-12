@@ -19,6 +19,7 @@ resource "aws_instance" "ec2_1" {
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = aws_instance.ec2_1.id
   allocation_id = aws_eip.lb.id
+  depends_on = [ aws_instance.ec2_1, aws_eip.lb ] #dependency check for resource creation
 }
 
 resource "aws_security_group" "allow_tls" {
